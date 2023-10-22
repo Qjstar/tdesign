@@ -1,3 +1,3 @@
-import styles from '../../_common/style/web/components/message/_index.less'
+import style from '../../_common/style/web/components/message/_index.less'
 
-export default styles
+export default style

@@ -1,5 +1,6 @@
 import { define, OmiProps, h, render, WeElement, createRef } from 'omi'
-import '../../../../../src/message/index'
+import '../../../../../src/message/message'
+import '../../../../../src/message/_example/base'
 import '../../../../../src/message/_example/close'
 import '../../../../../src/message/_example/closeAll'
 import '../../../../../src/space/index'
@@ -28,7 +29,7 @@ onDurationEnd |	Function ||	TS 类型：() => void 计时结束后触发 | 	N
 
 const list: any = []
 let flag: number = 0
-let messageClose = document.querySelector('body > message-close').shadowRoot.querySelector('t-message') as HTMLElement
+let messageClose = document.querySelector('body > message-close').shadowRoot.querySelector('t-message')
 let messageAll = document.querySelector('body > message-close-all').shadowRoot.querySelector('t-space')
 let body = document.querySelector('body')
 
@@ -67,13 +68,7 @@ define(
     }
 
     closeToggle = () => {
-      if (flag === 1) {
-        flag = 0
-        messageClose.style.display = 'none'
-      } else {
-        flag = 1
-        messageClose.style.display = 'block'
-      }
+     
     }
     openAll = () => {}
     closeAll = () => {}
@@ -81,25 +76,15 @@ define(
       return (
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
-          <div style="padding:24px">
+          <div style={this.isShow('demo')} name="DEMO">
             <h2>Message全局提示</h2>
             <demo-wrapper>
-              <t-space direction="vertical" size="large">
-                <t-message theme="info" content="This is my info" />
-                <t-message theme="success" content="This is my success" />
-                <t-message theme="warning" content="This is my warning" />
-                <t-message theme="error" content="This is my error" />
-              </t-space>
+              <message-base></message-base>
             </demo-wrapper>
 
             <h2>带关闭按钮的全局提示</h2>
             <demo-wrapper>
-              <t-space direction="vertical" size="large">
-                <t-message theme="info" content="This is my info" closeBtn />
-                <t-message theme="success" content="This is my success" closeBtn />
-                <t-message theme="warning" content="This is my warning" closeBtn />
-                <t-message theme="error" content="This is my error" closeBtn />
-              </t-space>
+              <message-close></message-close>
             </demo-wrapper>
 
             <h2>加载相应时间自动关闭</h2>
@@ -117,7 +102,7 @@ define(
               <t-button theme="primary" onClick={this.closeToggle}>
                 自由控制关闭时机（打开/关闭）
               </t-button>
-              <messsage-close></messsage-close>
+              <message-close></message-close>
             </demo-wrapper>
 
             <h2>关闭多条全局提示</h2>
@@ -133,8 +118,13 @@ define(
               </t-space>
               <message-close-all></message-close-all>
             </demo-wrapper>
+
+          </div>
+          <div style={this.isShow('api')} name="API">
             <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
           </div>
+          <div style={this.isShow('design')} name="DESIGN"></div>
+
         </>
       )
     }
